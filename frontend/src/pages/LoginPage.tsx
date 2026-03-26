@@ -7,11 +7,31 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { motion, type Variants } from 'motion/react'
+
+const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25,
+      delayChildren: 0.2,
+    },
+  },
+}
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible:  {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+}
 
 export default function LoginPage() {
-  const navigate   = useNavigate()
-  const { login }  = useAuth()
-
+  const navigate  = useNavigate()
+  const { login } = useAuth()
   const [email, setEmail]       = useState('')
   const [password, setPassword] = useState('')
   const [error, setError]       = useState('')
@@ -21,7 +41,6 @@ export default function LoginPage() {
     e.preventDefault()
     setError('')
     setLoading(true)
-
     try {
       const data = await loginRequest({ email, password })
       login(data.user, data.token)
@@ -36,54 +55,69 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[#FFFFFF]">
-      <Card className="w-full max-w-md shadow-lg">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
-          <CardDescription>Ingresa tus credenciales para continuar</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+    <motion.div
+      className="flex items-center justify-center min-h-screen bg-[#FFFFFF]"
+      initial="hidden"
+      animate="visible"
+      variants={staggerContainer}
+    >
+      <motion.div variants={fadeUp} className="w-full max-w-md">
+        <Card className="shadow-lg">
+          <CardHeader className="text-center">
+            <motion.div variants={fadeUp}>
+              <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
+            </motion.div>
+            <motion.div variants={fadeUp}>
+              <CardDescription>Ingresa tus credenciales para continuar</CardDescription>
+            </motion.div>
+          </CardHeader>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="admin@test.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <motion.div variants={fadeUp} className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="admin@test.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </motion.div>
 
-            <div className="space-y-2">
-              <Label htmlFor="password">Contraseña</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+              <motion.div variants={fadeUp} className="space-y-2">
+                <Label htmlFor="password">Contraseña</Label>
+                <Input
+                  id="password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </motion.div>
 
-            {error && (
-              <p className="text-sm text-rose-500 text-center bg-rose-100 p-2 font-mono">{error}</p>
-            )}
+              {error && (
+                <motion.p
+                  className="text-sm text-rose-500 text-center bg-rose-100 p-2 font-mono"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {error}
+                </motion.p>
+              )}
 
-            <Button
-              type="submit"
-              className="w-full"
-              disabled={loading}
-            >
-              {loading ? 'Iniciando sesión...' : 'Entrar'}
-            </Button>
-
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+              <motion.div variants={fadeUp}>
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? 'Iniciando sesión...' : 'Entrar'}
+                </Button>
+              </motion.div>
+            </form>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </motion.div>
   )
 }
