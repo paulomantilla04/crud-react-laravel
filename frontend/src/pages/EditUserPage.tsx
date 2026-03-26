@@ -108,14 +108,14 @@ export default function EditUserPage() {
     <div className="p-8 max-w-3xl mx-auto">
       <Card>
         <CardHeader>
-          <CardTitle>Editar Usuario</CardTitle>
+          <CardTitle className='text-2xl font-bold'>Editar Usuario</CardTitle>
           <CardDescription>Actualiza los datos y guarda los cambios.</CardDescription>
         </CardHeader>
         <CardContent>
           {loading ? (
             <p className="text-gray-500">Cargando usuario...</p>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 font-mono">
               <div className="space-y-2">
                 <Label htmlFor="name">Nombre</Label>
                 <Input
@@ -126,7 +126,7 @@ export default function EditUserPage() {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 *:font-mono">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
@@ -137,7 +137,7 @@ export default function EditUserPage() {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 *:font-mono">
                 <Label htmlFor="phone">Teléfono</Label>
                 <Input
                   id="phone"
@@ -146,7 +146,7 @@ export default function EditUserPage() {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 *:font-mono">
                 <Label htmlFor="address">Dirección</Label>
                 <Input
                   id="address"
@@ -155,7 +155,7 @@ export default function EditUserPage() {
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 *:font-mono">
                 <Label htmlFor="role">Rol</Label>
                 <select
                   id="role"
@@ -168,7 +168,7 @@ export default function EditUserPage() {
                 </select>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 *:font-mono">
                 <Label htmlFor="password">Nueva contraseña (opcional)</Label>
                 <Input
                   id="password"
@@ -182,7 +182,7 @@ export default function EditUserPage() {
                 <p className="text-sm text-rose-500 bg-rose-100 p-2 font-mono">{error}</p>
               )}
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 *:font-mono">
                 <Button type="button" variant="outline" onClick={() => navigate('/users')}>
                   Cancelar
                 </Button>

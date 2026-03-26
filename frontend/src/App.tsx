@@ -4,6 +4,7 @@ import LoginPage from "@/pages/LoginPage";
 import UsersPage from "@/pages/UsersPage";
 import UnauthorizedPage from "@/pages/UnauthorizedPage";
 import EditUserPage from "@/pages/EditUserPage";
+import CreateUserPage from "@/pages/CreateUserPage";
 
 function App() {
   return (
@@ -25,9 +26,7 @@ function App() {
         path="/users/create"
         element={
           <ProtectedRoute requireAdmin>
-            <div className="p-8">
-              <h1>Crear Usuario</h1>
-            </div>
+            <CreateUserPage />
           </ProtectedRoute>
         }
       />
