@@ -1,10 +1,29 @@
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { ProtectedRoute } from '@/components/ProtectedRoute'
+import LoginPage from '@/pages/LoginPage'
+import UsersPage from '@/pages/UsersPage'
+import UnauthorizedPage from '@/pages/UnauthorizedPage'
+
 function App() {
   return (
-    <div>
-      <h1 className="text-2xl font-bold text-center mt-10">
-        CRUD Usuarios
-      </h1>
-    </div>
+    <Routes>
+      <Route path="/login" element={<LoginPage />} />
+
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
+
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute requireAdmin>
+            <UsersPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route path="/" element={<Navigate to="/login" replace />} />
+
+      <Route path="*" element={<Navigate to="/login" replace />} />
+    </Routes>
   )
 }
 
