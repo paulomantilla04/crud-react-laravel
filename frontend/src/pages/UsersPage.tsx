@@ -14,6 +14,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { RiPencilFill, RiDeleteBinFill, RiUserAddFill, RiLogoutBoxFill } from '@remixicon/react'
 
 export default function UsersPage() {
   const navigate = useNavigate()
@@ -69,10 +70,10 @@ export default function UsersPage() {
         </div>
         <div className="flex gap-2">
           <Button onClick={() => navigate('/users/create')}>
-            + Nuevo Usuario
+            <RiUserAddFill className="size-4" /> Nuevo Usuario
           </Button>
           <Button variant="outline" onClick={handleLogout}>
-            Cerrar Sesión
+            <RiLogoutBoxFill className="size-4" /> Cerrar Sesión
           </Button>
         </div>
       </div>
@@ -94,7 +95,7 @@ export default function UsersPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>#</TableHead>
+                  <TableHead>ID</TableHead>
                   <TableHead>Nombre</TableHead>
                   <TableHead>Email</TableHead>
                   <TableHead>Teléfono</TableHead>
@@ -121,18 +122,18 @@ export default function UsersPage() {
                     <TableCell>
                       <div className="flex gap-2">
                         <Button
-                          size="sm"
+                          size="icon"
                           variant="outline"
                           onClick={() => navigate(`/users/${u.id}/edit`)}
                         >
-                          Editar
+                          <RiPencilFill className="size-4" />
                         </Button>
                         <Button
-                          size="sm"
+                          size="icon"
                           variant="destructive"
                           onClick={() => handleDelete(u.id)}
                         >
-                          Eliminar
+                          <RiDeleteBinFill className="size-4" />
                         </Button>
                       </div>
                     </TableCell>
