@@ -1,16 +1,6 @@
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 import { type AuthUser } from '@/types'
-
-interface AuthContextType {
-  user: AuthUser | null
-  token: string | null
-  login: (user: AuthUser, token: string) => void
-  logout: () => void
-  isAuthenticated: boolean
-  isAdmin: boolean
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined)
+import { AuthContext } from './auth-context'
 
 
 function getInitialToken(): string | null {
@@ -19,7 +9,14 @@ function getInitialToken(): string | null {
 
 function getInitialUser(): AuthUser | null {
   const saved = localStorage.getItem('user')
-  return saved ? JSON.parse(saved) : null
+  if (!saved) return null
+
+  try {
+    return JSON.parse(saved) as AuthUser
+  } catch {
+    localStorage.removeItem('user')
+    return null
+  }
 }
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -52,12 +49,4 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       {children}
     </AuthContext.Provider>
   )
-}
-
-export function useAuth() {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error('useAuth debe usarse dentro de AuthProvider')
-  }
-  return context
 }

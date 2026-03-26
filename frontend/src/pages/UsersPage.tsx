@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '@/context/AuthContext'
+import { useAuth } from '@/context/useAuth'
 import { logoutRequest } from '@/api/auth'
 import { getUsersRequest, deleteUserRequest } from '@/api/users'
 import { type User } from '@/types'

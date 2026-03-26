@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '@/context/AuthContext'
+import { AxiosError } from 'axios'
+import { useAuth } from '@/context/useAuth'
 import { loginRequest } from '@/api/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -25,8 +26,9 @@ export default function LoginPage() {
       const data = await loginRequest({ email, password })
       login(data.user, data.token)
       navigate('/users')
-    } catch (err: any) {
-      const message = err.response?.data?.message || 'Error al iniciar sesión'
+    } catch (err: unknown) {
+      const axiosError = err as AxiosError<{ message?: string }>
+      const message = axiosError.response?.data?.message || 'Error al iniciar sesión'
       setError(message)
     } finally {
       setLoading(false)
