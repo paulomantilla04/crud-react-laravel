@@ -11,6 +11,8 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/me', [AuthController::class, 'me']);
     
     // CRUD para el admin
-    Route::apiResource('users', UserController::class);
+    Route::middleware('is_admin')->group(function () {
+            Route::apiResource('users', UserController::class);
+    });
 });
 
