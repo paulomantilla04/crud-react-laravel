@@ -3,6 +3,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import LoginPage from "@/pages/LoginPage";
 import UsersPage from "@/pages/UsersPage";
 import UnauthorizedPage from "@/pages/UnauthorizedPage";
+import EditUserPage from "@/pages/EditUserPage";
 
 function App() {
   return (
@@ -35,9 +36,7 @@ function App() {
         path="/users/:id/edit"
         element={
           <ProtectedRoute requireAdmin>
-            <div className="p-8">
-              <h1>Editar Usuario</h1>
-            </div>
+            <EditUserPage />
           </ProtectedRoute>
         }
       />
