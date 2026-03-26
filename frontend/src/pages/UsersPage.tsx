@@ -14,7 +14,8 @@ import {
   TableRow,
 } from '@/components/ui/table'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { RiPencilFill, RiDeleteBinFill, RiUserAddFill, RiLogoutBoxFill } from '@remixicon/react'
+import { RiPencilFill, RiUserAddFill, RiLogoutBoxFill } from '@remixicon/react'
+import { DialogDelete } from '@/components/dialog-delete'
 
 export default function UsersPage() {
   const navigate = useNavigate()
@@ -128,13 +129,7 @@ export default function UsersPage() {
                         >
                           <RiPencilFill className="size-4" />
                         </Button>
-                        <Button
-                          size="icon"
-                          variant="destructive"
-                          onClick={() => handleDelete(u.id)}
-                        >
-                          <RiDeleteBinFill className="size-4" />
-                        </Button>
+                        <DialogDelete onDelete={() => handleDelete(u.id)} />
                       </div>
                     </TableCell>
                   </TableRow>
